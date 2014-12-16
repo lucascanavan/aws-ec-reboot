@@ -21,7 +21,7 @@ for application in config.applications
         if response?
             for environment in response.Environments
                 console.log "About to reboot cache for environment: #{environment.EnvironmentName} ..."
-                elasticbeanstalk.describeConfigurationSettings { ApplicationName: application.ApplicationName, EnvironmentName: environment.EnvironmentName }, (err, response) =>
+                elasticbeanstalk.describeConfigurationSettings { ApplicationName: environment.ApplicationName, EnvironmentName: environment.EnvironmentName }, (err, response) =>
                     console.log err, err.stack if err?
                     if response? && response.ConfigurationSettings.length > 0
                         cacheEnvironmentVariableNameUpperCase = config.cacheEnvironmentVariableName.toUpperCase()
@@ -35,9 +35,10 @@ for application in config.applications
                                 elasticache.describeCacheClusters { CacheClusterId: redisHost, ShowCacheNodeInfo: true }, (err, response) =>
                                     console.log err, err.stack if err?
                                     if response? && response.CacheClusters.length > 0
+                                        redisHost = response.CacheClusters[0].CacheClusterId
                                         cacheNodes = []
                                         cacheNodes.push(node.CacheNodeId) for node in response.CacheClusters[0].CacheNodes
                                         console.log "About to reboot cache nodes for cluster: #{redisHost} ..."
                                         elasticache.rebootCacheCluster { CacheClusterId: redisHost, CacheNodeIdsToReboot: cacheNodes }, (err, response) =>
-                                        console.log err, err.stack if err?
-                                        console.log response if response?
+                                            console.log err, err.stack if err?
+                                            console.log response if response?
