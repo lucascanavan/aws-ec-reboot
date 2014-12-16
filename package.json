@@ -1,0 +1,24 @@
+{
+  "name": "aws-ec-reboot",
+  "version": "1.0.0",
+  "description": "Reboot AWS Elasticache",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.0.27",
+    "coffee-script": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucascanavan/aws-ec-reboot.git"
+  },
+  "author": "Lucas Canavan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucascanavan/aws-ec-reboot/issues"
+  },
+  "homepage": "https://github.com/lucascanavan/aws-ec-reboot"
+}
